@@ -10,7 +10,7 @@ export interface Weather {
   weatherData: null | {[key: string]: any};
   selectedCityId: null | number;
   fetching: boolean;
-  error: Error | null;
+  error: string | null;
 };
 
 const initialState: Weather = {

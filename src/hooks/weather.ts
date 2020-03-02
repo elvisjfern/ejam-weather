@@ -14,7 +14,7 @@ const useWeather: () => [Weather, (cityId: number) => Promise<Action | undefined
   const fetchWeatherDataCb = useCallback(async (cityId: number) => {
     try {
       if (!cityId) {
-        return dispatch(weatherDataError(new Error('No city selected')));
+        return dispatch(weatherDataError('No city selected'));
       }
       
       // console.log(cityId, selectedCityId)
@@ -27,7 +27,7 @@ const useWeather: () => [Weather, (cityId: number) => Promise<Action | undefined
       const { data = {}} = await fetchWeatherDataAPI(cityId);
       dispatch(weatherDataSuccess(data));
     } catch (error) {
-      dispatch(weatherDataError(error));
+      dispatch(weatherDataError('Weather data could not fetched. Please try again'));
     }
   }, 
   [dispatch]);

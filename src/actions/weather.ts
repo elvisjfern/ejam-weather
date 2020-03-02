@@ -16,7 +16,7 @@ export const weatherDataSuccess = (weatherData: {[key: string]: unknown}): Actio
   payload: weatherData
 });
 
-export const weatherDataError = (error: Error): Action => ({
+export const weatherDataError = (error: string): Action => ({
   type:   FETCH_WEATHER_DATA_ERROR,
   payload: error
 });

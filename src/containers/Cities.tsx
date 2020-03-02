@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
   },
   listItem: {
     padding: '10px',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    backgroundClip: 'border-box'
   },
   selectedListItem: {
     backgroundColor: '#ccccca',
@@ -52,6 +53,13 @@ const useStyles = makeStyles(theme => ({
     '& > div' : {
       marginTop: '6px',
     }
+  },
+  errorContainer: {
+    padding: '14px',
+    color: '#721c24',
+    backgroundColor: '#f8d7da',
+    borderColor: '#f5c6cb',
+    borderRadius: '4px',
   }
 }));
 
@@ -85,7 +93,7 @@ const Cities = () => {
         <section>
           {
             error ? 
-            <div> {error.toString()} </div> :
+            <div className={styles.errorContainer}> {error} </div> :
               weatherData && (
                 <section> 
                   <header>
