@@ -13,20 +13,28 @@ const API_KEY = 'f4d3a20d04e7a798f4c14fa0e5971cb7';
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
-app.get('/weather/:cityId', async (req, res) => {
-  const { cityId = 0} = req.params;
-  if(!cityId) {
-    res.status(400).json({ msg: 'Incorrect city provided' })
+app.get('/api/weather/:cityId', async (req, res) => {
+  const { cityId = 0 } = req.params;
+  if (!cityId) {
+    res.status(400).json({ msg: 'Incorrect city provided' });
   }
 
   try {
-    const { data } = await axios.get(`htttps://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}&units=metric`)
+    const { data } = await axios.get(
+      `htttps://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}&units=metric`
+    );
     // console.log(data);
-    res.send({msg: 'Success', data});
+    res.send({ msg: 'Success', data });
   } catch (error) {
-    res.status(500).json({ msg: 'Error while fetching data' }); 
+    res.status(500).json({ msg: 'Error while fetching data' });
   }
 });
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
+
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 //start server
 app.listen(port, () => {
