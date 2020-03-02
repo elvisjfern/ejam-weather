@@ -8,7 +8,9 @@ import Cities from './containers/Cities'
 function App() {
   return (
     <>
-      <header></header>
+      <header style={{padding: '0 10px'}}> 
+        <h1>Weather Forecast</h1> 
+      </header>
       <main>
         <Provider store={store}>
           <Cities />

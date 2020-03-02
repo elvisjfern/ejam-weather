@@ -36,7 +36,7 @@ const initialState: Weather = {
 };
 
 export const weatherReducer = (
-  state: typeof initialState = initialState,
+  state: Weather = initialState,
   action: Action
 ): Weather => {
   const { type, payload } = action;
@@ -46,6 +46,7 @@ export const weatherReducer = (
         ...state,
         fetching: true,
         selectedCityId: payload,
+        error: null,
         weatherData: null,
       };
 
@@ -53,7 +54,8 @@ export const weatherReducer = (
       return {
         ...state,
         fetching: false,
-        weatherData: null,
+        error: null,
+        weatherData: payload,
       };
 
     case FETCH_WEATHER_DATA_ERROR:

@@ -6,12 +6,12 @@ import {
   FETCH_WEATHER_DATA_ERROR
 } from "./types";
 
-export const fetchWeatherData = (cityID: number): Action => ({
+export const fetchWeatherData = (cityId: number): Action => ({
   type:   FETCH_WEATHER_DATA,
-  payload: cityID,
+  payload: cityId,
 });
 
-export const weatherDataSuccess = (weatherData: {[key: string]: string}): Action => ({
+export const weatherDataSuccess = (weatherData: {[key: string]: unknown}): Action => ({
   type:   FETCH_WEATHER_DATA_SUCCESS,
   payload: weatherData
 });

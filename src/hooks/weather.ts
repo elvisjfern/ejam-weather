@@ -9,14 +9,22 @@ import  { fetchWeatherData as fetchWeatherDataAPI } from '../services/weather';
 
 const useWeather: () => [Weather, (cityId: number) => Promise<Action | undefined>] = () => {
   const weather = useSelector<RootState>(state => state.weather) as Weather;
+  // const { selectedCityId } = weather;
   const dispatch = useDispatch();
   const fetchWeatherDataCb = useCallback(async (cityId: number) => {
     try {
       if (!cityId) {
         return dispatch(weatherDataError(new Error('No city selected')));
       }
+      
+      // console.log(cityId, selectedCityId)
+      // if(cityId === selectedCityId) {
+      //   console.log('reached')
+      //   return;
+      // }
+
       dispatch(fetchWeatherData(cityId));
-      const data = await fetchWeatherDataAPI(cityId);
+      const { data = {}} = await fetchWeatherDataAPI(cityId);
       dispatch(weatherDataSuccess(data));
     } catch (error) {
       dispatch(weatherDataError(error));

@@ -47,13 +47,18 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     backgroundColor: '#ffffff'
+  },
+  weatherDesc: {
+    '& > div' : {
+      marginTop: '6px',
+    }
   }
 }));
 
 const Cities = () => {
   const styles = useStyles();
   const [weather, fetchWeatherData] = useWeather();
-  const { cities = [],  fetching = false, error = null, weatherData } = weather;
+  const { cities = [],  fetching = false, error = null, weatherData = null} = weather;
   const [selectedCityId, selectCity] = useState<number>(0);
 
   return (
@@ -81,7 +86,36 @@ const Cities = () => {
           {
             error ? 
             <div> {error.toString()} </div> :
-            <div> { weatherData }</div>
+              weatherData && (
+                <section> 
+                  <header>
+                    <h2> City Name: { weatherData.name }</h2>
+                    <h4 style={{textTransform: 'capitalize'}}>
+                      {weatherData.weather[0]?.description}
+                    </h4>
+                  </header>
+                  <main className={styles.weatherDesc}>
+                    <div>
+                      Temperature: {weatherData.main?.temp || '0'} &deg;C
+                    </div>
+                    <div>
+                      Min Temperature: {weatherData.main?.temp_min || '0'} &deg;C
+                    </div>
+                    <div>
+                      Max Temperature: {weatherData.main?.temp_max || '0'} &deg;C
+                    </div>
+                    <div>
+                      Humidity: {weatherData.main?.humidity || '0'} %
+                    </div>
+                    <div>
+                      Wind speed: {weatherData.wind?.speed || '0'} m/s
+                    </div>
+                    <div>
+                      Humidity: {weatherData.main?.humidity || '0'} %
+                    </div>
+                  </main>
+                </section>
+              )
           }
         </section>
       }
